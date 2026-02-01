@@ -1,0 +1,78 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Global Styles */
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply m-0 font-sans antialiased bg-background text-text-primary;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+/* Ant Design Overrides */
+@layer components {
+  /* Override Ant Design default colors to match our theme */
+  .ant-btn-primary {
+    @apply bg-primary-yellow border-primary-yellow;
+  }
+
+  .ant-btn-primary:hover {
+    @apply bg-primary-orange border-primary-orange;
+  }
+
+  .ant-table-thead > tr > th {
+    @apply bg-background font-semibold text-text-primary;
+  }
+
+  .ant-badge-status-success {
+    @apply bg-success;
+  }
+
+  .ant-badge-status-error {
+    @apply bg-danger;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-text-light rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-secondary;
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .card-shadow {
+    @apply shadow-card hover:shadow-card-hover transition-shadow duration-200;
+  }
+
+  .text-truncate {
+    @apply overflow-hidden text-ellipsis whitespace-nowrap;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+}

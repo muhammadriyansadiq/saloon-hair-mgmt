@@ -1,0 +1,34 @@
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ConfigProvider } from 'antd';
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            retry: 1,
+        },
+    },
+});
+
+interface ProvidersProps {
+    children: React.ReactNode;
+}
+
+export const Providers: React.FC<ProvidersProps> = ({ children }) => {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ConfigProvider
+                theme={{
+                    token: {
+                        colorPrimary: '#F5A623',
+                        borderRadius: 8,
+                        fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+                    },
+                }}
+            >
+                {children}
+            </ConfigProvider>
+        </QueryClientProvider>
+    );
+};

@@ -1,0 +1,224 @@
+import React from 'react';
+import { Calendar } from 'lucide-react';
+import {
+    CalendarOutlined,
+    ThunderboltOutlined,
+    DollarOutlined,
+} from '@ant-design/icons';
+import StatCard from '../components/dashboard/StatCard';
+import BarberQueueCard from '../components/BarberQueueCard';
+import PaymentTable from '../components/PaymentTable';
+import QuickActions from '../components/QuickActions';
+import { BarberQueue } from '../types/dashboard.types';
+
+
+const DashboardPage: React.FC = () => {
+    // Mock data for barber queues
+    const stats = {
+        appointments: { value: '12', title: 'Todays Appointments' },
+        tokens: { value: 'Token 05', title: 'Action Tokens' },
+        collections: { value: '$8,950', badge: '1500', title: 'Todays Collections' },
+        dues: { value: '$450', title: 'Pending Dues' }
+    };
+    const barberQueues: BarberQueue[] = [
+        {
+            barberName: 'Shan',
+            activeItems: [
+                {
+                    tokenNo: 'Token No: #24',
+                    clientName: 'Ahmed Khan',
+                    services: 'Services: Haircut & Shave',
+                    status: 'active',
+                    buttonText: 'Complete',
+                    buttonColor: 'bg-blue-500', // Or a more specific brand blue
+                },
+            ],
+            pendingItems: [
+                {
+                    tokenNo: 'Token No: #15',
+                    clientName: 'Hamza Rizwan',
+                    services: 'Services: Haircut & Shave',
+                    status: 'pending',
+                    buttonText: 'Start Services',
+                    buttonColor: 'bg-success',
+                },
+            ],
+        },
+        {
+            barberName: 'Ali',
+            activeItems: [
+                {
+                    tokenNo: 'Token No: #24',
+                    clientName: 'Ehtisham',
+                    services: 'Services: Haircut & Shave',
+                    status: 'active',
+                    buttonText: 'Complete',
+                    buttonColor: 'bg-blue-500',
+                },
+            ],
+            pendingItems: [
+                {
+                    tokenNo: 'Token No: #15',
+                    clientName: 'Arsalan',
+                    services: 'Services: Haircut & Shave',
+                    status: 'pending',
+                    buttonText: 'Start Due',
+                    buttonColor: 'bg-success',
+                },
+            ],
+        },
+        {
+            barberName: 'Ahmed',
+            activeItems: [
+                {
+                    tokenNo: 'Token No: #24',
+                    clientName: 'Ehtisham',
+                    services: 'Services: Haircut & Shave',
+                    status: 'active',
+                    buttonText: 'Complete',
+                    buttonColor: 'bg-blue-500',
+                },
+            ],
+            pendingItems: [
+                {
+                    tokenNo: 'Token No: #15',
+                    clientName: 'Arsalan',
+                    services: 'Services: Haircut & Shave',
+                    status: 'pending',
+                    buttonText: 'Start Due',
+                    buttonColor: 'bg-success',
+                },
+            ],
+        },
+    ];
+    const queues = [
+        {
+            barberName: 'Shan',
+            activeQueue: { tokenNo: '#24', customerName: 'Ahmed Khan', services: 'Haircut & Shave' },
+            pendingQueue: { tokenNo: '#15', customerName: 'Hamza Rizwan', services: 'Haircut & Shave' }
+        },
+        {
+            barberName: 'Ali',
+            activeQueue: { tokenNo: '#24', customerName: 'Ehtisham', services: 'Haircut & Shave' },
+            pendingQueue: { tokenNo: '#15', customerName: 'Arsalan', services: 'Haircut & Shave' }
+        },
+        {
+            barberName: 'Ahmed',
+            activeQueue: { tokenNo: '#24', customerName: 'Ehtisham', services: 'Haircut & Shave' },
+            pendingQueue: { tokenNo: '#15', customerName: 'Arsalan', services: 'Haircut & Shave' }
+        }
+    ];
+
+
+    return (
+        <div className="space-y-8 animate-fade-in">
+            {/* Stats Cards */}
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <StatCard
+                    title="Todays Appointments"
+                    value="12"
+                    bgColor="bg-primary-yellow"
+                    icon={<CalendarOutlined />}
+                    textColor="text-white"
+                />
+                <StatCard
+                    title="Action Tokens"
+                    value="Token 05"
+                    bgColor="bg-dark"
+                    icon={<ThunderboltOutlined />}
+                    textColor="text-white"
+                />
+                <StatCard
+                    title="Todays Collections"
+                    value="$8,950"
+                    bgColor="bg-primary-yellow" // Assuming this is also yellow based on common design patterns, or maybe orange
+                    badge="+1500" // Changed 10% to 1500 to match likely numeric value in design or just cleaner
+                    icon={<DollarOutlined />}
+                    textColor="text-white"
+                />
+                <StatCard
+                    title="Pending Dues"
+                    value="$450"
+                    bgColor="bg-dark"
+                    icon={<DollarOutlined />} // Maybe a different icon like FileText if avail
+                    textColor="text-danger" // Red text for dues? Or keep white on black
+                />
+            </div> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <StatCard
+                    title={stats.appointments.title}
+                    value={stats.appointments.value}
+                    bgColor="bg-[#F5BF4F]"
+                    textColor="text-white"
+                    icon={<Calendar size={20} className="opacity-80 text-white" />}
+                />
+                <StatCard
+                    title={stats.tokens.title}
+                    value={stats.tokens.value}
+                    bgColor="bg-primary-blackjet"
+                    textColor="text-white"
+                />
+                <StatCard
+                    title={stats.collections.title}
+                    value={stats.collections.value}
+                    bgColor="bg-[#F5BF4F]"
+                    textColor="text-white"
+                    valueColor="text-[#2FB344]"
+                    badge={
+                        <div className="bg-white/40 px-1 py-0.5 rounded text-[10px] font-medium flex items-center gap-0.5 text-white">
+                            <span className="text-[8px] transform -rotate-45">↗</span> {stats.collections.badge}
+                        </div>
+                    }
+                />
+                <StatCard
+                    title={stats.dues.title}
+                    value={stats.dues.value}
+                    bgColor="bg-primary-blackjet"
+                    textColor="text-white"
+                    valueColor="text-red-500"
+                />
+            </div>
+            {/* Barber Queues */}
+            {/* <div>
+                <h2 className="text-xl font-bold text-text-primary mb-6">
+                    Barber Queues
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {barberQueues.map((queue, index) => (
+                        <div key={index} className="h-full">
+                            <BarberQueueCard
+                                barberName={queue.barberName}
+                                activeItems={queue.activeItems}
+                                pendingItems={queue.pendingItems}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div> */}
+            <div>
+                <h2 className="text-xl font-bold text-gray-800 mb-4">Barber Queues</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {queues.map((queue, index) => (
+                        <BarberQueueCard
+                            key={index}
+                            barberName={queue.barberName}
+                            activeQueue={queue.activeQueue}
+                            pendingQueue={queue.pendingQueue}
+                        />
+                    ))}
+                </div>
+            </div>
+            {/* Payment & Dues + Quick Actions */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2 h-full">
+                    <PaymentTable />
+                </div>
+                <div className="h-full">
+                    <QuickActions />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default DashboardPage;
