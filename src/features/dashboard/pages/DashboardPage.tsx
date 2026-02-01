@@ -1,15 +1,11 @@
-import React from 'react';
+
 import { Calendar } from 'lucide-react';
-import {
-    CalendarOutlined,
-    ThunderboltOutlined,
-    DollarOutlined,
-} from '@ant-design/icons';
+
 import StatCard from '../components/dashboard/StatCard';
 import BarberQueueCard from '../components/BarberQueueCard';
 import PaymentTable from '../components/PaymentTable';
 import QuickActions from '../components/QuickActions';
-import { BarberQueue } from '../types/dashboard.types';
+
 
 
 const DashboardPage: React.FC = () => {
@@ -20,77 +16,7 @@ const DashboardPage: React.FC = () => {
         collections: { value: '$8,950', badge: '1500', title: 'Todays Collections' },
         dues: { value: '$450', title: 'Pending Dues' }
     };
-    const barberQueues: BarberQueue[] = [
-        {
-            barberName: 'Shan',
-            activeItems: [
-                {
-                    tokenNo: 'Token No: #24',
-                    clientName: 'Ahmed Khan',
-                    services: 'Services: Haircut & Shave',
-                    status: 'active',
-                    buttonText: 'Complete',
-                    buttonColor: 'bg-blue-500', // Or a more specific brand blue
-                },
-            ],
-            pendingItems: [
-                {
-                    tokenNo: 'Token No: #15',
-                    clientName: 'Hamza Rizwan',
-                    services: 'Services: Haircut & Shave',
-                    status: 'pending',
-                    buttonText: 'Start Services',
-                    buttonColor: 'bg-success',
-                },
-            ],
-        },
-        {
-            barberName: 'Ali',
-            activeItems: [
-                {
-                    tokenNo: 'Token No: #24',
-                    clientName: 'Ehtisham',
-                    services: 'Services: Haircut & Shave',
-                    status: 'active',
-                    buttonText: 'Complete',
-                    buttonColor: 'bg-blue-500',
-                },
-            ],
-            pendingItems: [
-                {
-                    tokenNo: 'Token No: #15',
-                    clientName: 'Arsalan',
-                    services: 'Services: Haircut & Shave',
-                    status: 'pending',
-                    buttonText: 'Start Due',
-                    buttonColor: 'bg-success',
-                },
-            ],
-        },
-        {
-            barberName: 'Ahmed',
-            activeItems: [
-                {
-                    tokenNo: 'Token No: #24',
-                    clientName: 'Ehtisham',
-                    services: 'Services: Haircut & Shave',
-                    status: 'active',
-                    buttonText: 'Complete',
-                    buttonColor: 'bg-blue-500',
-                },
-            ],
-            pendingItems: [
-                {
-                    tokenNo: 'Token No: #15',
-                    clientName: 'Arsalan',
-                    services: 'Services: Haircut & Shave',
-                    status: 'pending',
-                    buttonText: 'Start Due',
-                    buttonColor: 'bg-success',
-                },
-            ],
-        },
-    ];
+
     const queues = [
         {
             barberName: 'Shan',

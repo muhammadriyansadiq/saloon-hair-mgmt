@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '@/shared/components/Layout/MainLayout';
 import DashboardPage from '@/features/dashboard/pages/DashboardPage';
