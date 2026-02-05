@@ -20,7 +20,7 @@ export const EditBarberModal = ({ open, onClose, barberId }: EditBarberModalProp
     const queryClient = useQueryClient();
     const [fileList, setFileList] = useState<any[]>([]);
 
-    const { control, handleSubmit, reset, formState: { errors, isDirty } } = useForm<BarberSchema>({
+    const { control, handleSubmit, reset, formState: { errors } } = useForm<BarberSchema>({
         resolver: zodResolver(barberSchema),
     });
 

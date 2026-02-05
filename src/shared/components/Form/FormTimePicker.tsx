@@ -1,6 +1,6 @@
 import { TimePicker, Form } from 'antd';
 import dayjs from 'dayjs';
-import { Control, useController, UseFormSetValue } from 'react-hook-form';
+import { Control, UseFormSetValue } from 'react-hook-form';
 import { AmPm } from '@/features/timing/types';
 
 interface FormTimePickerProps {
@@ -13,7 +13,7 @@ interface FormTimePickerProps {
     watch: (name: string) => any;
 }
 
-export const FormTimePicker = ({ name, amPmName, control, setValue, label, error, watch }: FormTimePickerProps) => {
+export const FormTimePicker = ({ name, amPmName, setValue, label, error, watch }: FormTimePickerProps) => {
     const timeValue = watch(name);
     const amPmValue = watch(amPmName);
 

@@ -71,12 +71,7 @@ export const CreateBarberModal = ({ open, onClose }: CreateBarberModalProps) => 
         createMutation.mutate(formData);
     };
 
-    const handleDisplayFile = (e: any) => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e?.fileList;
-    };
+
 
     return (
         <Modal

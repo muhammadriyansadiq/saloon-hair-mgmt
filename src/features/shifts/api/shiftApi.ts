@@ -1,5 +1,5 @@
 import { apiClient } from '@/shared/api/client';
-import { Shift, ShiftPayload, ShiftListResponse, ShiftResponse, ShiftFilters } from '../types';
+import { ShiftPayload, ShiftListResponse, ShiftResponse, ShiftFilters } from '../types';
 
 export const shiftApi = {
     getShifts: async (params?: ShiftFilters) => {
