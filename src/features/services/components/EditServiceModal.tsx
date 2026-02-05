@@ -18,7 +18,7 @@ interface EditServiceModalProps {
 export const EditServiceModal = ({ open, onClose, serviceId }: EditServiceModalProps) => {
     const queryClient = useQueryClient();
 
-    const { control, handleSubmit, reset, formState: { errors } } = useForm<ServiceSchema>({
+    const { control, handleSubmit, reset, formState: { errors, isDirty } } = useForm<ServiceSchema>({
         resolver: zodResolver(serviceSchema),
     });
 
@@ -41,7 +41,18 @@ export const EditServiceModal = ({ open, onClose, serviceId }: EditServiceModalP
     useEffect(() => {
         if (serviceResponse?.data) {
             const { name, description, duration, basePrice, discountPrice, premiumPrice, barbersId } = serviceResponse.data;
-            // barbersId might come as array of numbers or strings depending on backend. Schema expects array of numbers.
+            // Handle barbersId: it might be an array of IDs or an array of Barber objects if populated
+            // Check if we have 'barbers' property populated or if 'barbersId' is used
+            // This depends on what the backend actually sends. Safest is to check both.
+            let initialBarbers: number[] = [];
+            if (Array.isArray(barbersId) && barbersId.length > 0) {
+                // Check if it's numbers or objects (though type says numbers, runtime might differ)
+                initialBarbers = barbersId.map((b: any) => typeof b === 'object' ? b.id : Number(b));
+            } else if (serviceResponse.data.barbers && Array.isArray(serviceResponse.data.barbers)) {
+                // If backend sends populated 'barbers' array
+                initialBarbers = serviceResponse.data.barbers.map((b: any) => Number(b.id));
+            }
+
             reset({
                 name,
                 description,
@@ -49,7 +60,7 @@ export const EditServiceModal = ({ open, onClose, serviceId }: EditServiceModalP
                 basePrice,
                 discountPrice,
                 premiumPrice,
-                barbersId: barbersId ? barbersId.map(Number) : [],
+                barbersId: initialBarbers,
             });
         }
     }, [serviceResponse, reset]);
@@ -171,6 +182,7 @@ export const EditServiceModal = ({ open, onClose, serviceId }: EditServiceModalP
                         <Button
                             type="primary"
                             htmlType="submit"
+                            disabled={!isDirty}
                             loading={updateMutation.isPending}
                             className="bg-primary hover:bg-primary/90"
                         >
