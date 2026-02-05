@@ -14,9 +14,10 @@ interface FormSelectProps {
     label?: string;
     error?: string;
     className?: string;
+    mode?: 'multiple' | 'tags';
 }
 
-export const FormSelect = ({ name, control, options, placeholder, label, error, className }: FormSelectProps) => {
+export const FormSelect = ({ name, control, options, placeholder, label, error, className, mode }: FormSelectProps) => {
     return (
         <Form.Item
             label={label}
@@ -32,6 +33,7 @@ export const FormSelect = ({ name, control, options, placeholder, label, error, 
                     <Select
                         {...field}
                         id={name}
+                        mode={mode}
                         placeholder={placeholder}
                         options={options}
                         className="w-full h-11"

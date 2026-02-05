@@ -7,6 +7,7 @@ import TimingPage from '@/features/timing/pages/TimingPage';
 import ShiftsPage from '@/features/shifts/pages/ShiftsPage';
 import BarbersPage from '@/features/barbers/pages/BarbersPage';
 import SalonsPage from '@/features/salons/pages/SalonsPage';
+import ServicesPage from '@/features/services/pages/ServicesPage';
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
             {
                 path: 'salon',
                 element: <SalonsPage />,
+            },
+            {
+                path: 'services',
+                element: <ServicesPage />,
             },
             {
                 path: 'appointments',

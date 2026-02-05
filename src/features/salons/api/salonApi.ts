@@ -3,27 +3,27 @@ import { SalonFilters, SalonListResponse, SalonResponse } from '../types';
 
 export const salonApi = {
     getSalons: async (params?: SalonFilters) => {
-        const response = await apiClient.get<SalonListResponse>('/salon', { params });
+        const response = await apiClient.get<SalonListResponse>('/salons', { params });
         return response.data;
     },
 
     getSalonById: async (id: number) => {
-        const response = await apiClient.get<SalonResponse>(`/salon/${id}`);
+        const response = await apiClient.get<SalonResponse>(`/salons/${id}`);
         return response.data;
     },
 
     createSalon: async (data: any) => {
-        const response = await apiClient.post<SalonResponse>('/salon', data);
+        const response = await apiClient.post<SalonResponse>('/salons', data);
         return response.data;
     },
 
     updateSalon: async (id: number, data: any) => {
-        const response = await apiClient.put<SalonResponse>(`/salon/${id}`, data);
+        const response = await apiClient.put<SalonResponse>(`/salons/${id}`, data);
         return response.data;
     },
 
     deleteSalon: async (id: number) => {
-        const response = await apiClient.delete<{ message: string; success: boolean }>(`/salon/${id}`);
+        const response = await apiClient.delete<{ message: string; success: boolean }>(`/salons/${id}`);
         return response.data;
     }
 };

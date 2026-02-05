@@ -100,6 +100,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             label: 'Salons',
         },
         {
+            key: '/services',
+            icon: <ScissorOutlined />, // Reusing Scissor for now, or maybe SkinOutlined if available? Using Scissor as placeholder or find better one. Let's use SkinOutlined if I import it, or just Scissor. User used Scissor for Barber. Let's send ScissorOutlined for now or checking imports.
+            label: 'Services',
+        },
+        {
             key: '/settings',
             icon: <SettingOutlined />,
             label: 'Settings',
