@@ -7,6 +7,10 @@ import {
     DollarOutlined,
     FileTextOutlined,
     SettingOutlined,
+    ClockCircleOutlined,
+    ScheduleOutlined,
+    ScissorOutlined,
+    ShopOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -74,6 +78,26 @@ const Sidebar: React.FC<SidebarProps> = ({
             key: '/financial-summary',
             icon: <FileTextOutlined />,
             label: 'Financial Summary',
+        },
+        {
+            key: '/timing',
+            icon: <ClockCircleOutlined />,
+            label: 'Timing',
+        },
+        {
+            key: '/shifts',
+            icon: <ScheduleOutlined />,
+            label: 'Shifts',
+        },
+        {
+            key: '/barbers',
+            icon: <ScissorOutlined />,
+            label: 'Barbers',
+        },
+        {
+            key: '/salon',
+            icon: <ShopOutlined />,
+            label: 'Salons',
         },
         {
             key: '/settings',

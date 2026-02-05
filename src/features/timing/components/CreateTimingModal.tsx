@@ -1,0 +1,158 @@
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Modal, Button, message, Row, Col, Form } from 'antd';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { timingApi } from '../api/timingApi';
+import { timingSchema, TimingSchema } from '../schemas/timingSchema';
+import { FormInput } from '@/shared/components/Form/FormInput';
+import { FormSelect } from '@/shared/components/Form/FormSelect';
+import { FormTimePicker } from '@/shared/components/Form/FormTimePicker';
+
+interface CreateTimingModalProps {
+    open: boolean;
+    onClose: () => void;
+}
+
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(d => ({ label: d, value: d }));
+
+
+export const CreateTimingModal = ({ open, onClose }: CreateTimingModalProps) => {
+    const queryClient = useQueryClient();
+    const { control, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<TimingSchema>({
+        resolver: zodResolver(timingSchema),
+        defaultValues: {
+            day: 'Monday',
+            startTime: '10:00',
+            startTimeAmPm: 'AM',
+            endTime: '05:00',
+            endTimeAmPm: 'PM',
+            breakStartTime: '01:00',
+            breakStartTimeAmPm: 'PM',
+            breakEndTime: '02:00',
+            breakEndTimeAmPm: 'PM',
+        }
+    });
+
+    const createMutation = useMutation({
+        mutationFn: timingApi.createTiming,
+        onSuccess: () => {
+            message.success('Timing created successfully');
+            queryClient.invalidateQueries({ queryKey: ['timings'] });
+            reset();
+            onClose();
+        },
+        onError: (error) => {
+            message.error('Failed to create timing');
+            console.error(error);
+        }
+    });
+
+    const onSubmit = (data: TimingSchema) => {
+        createMutation.mutate(data);
+    };
+
+    return (
+        <Modal
+            title="Create New Timing"
+            open={open}
+            onCancel={onClose}
+            footer={null}
+            width={800}
+            centered
+        >
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
+                <Form layout="vertical" component="div">
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <FormSelect
+                                name="day"
+                                control={control}
+                                label="Day"
+                                options={DAYS}
+                                placeholder="Select Day"
+                                error={errors.day?.message}
+                            />
+                        </Col>
+                        <Col span={12}>
+                            <FormInput
+                                name="title"
+                                control={control}
+                                label="Title"
+                                placeholder="e.g. Regular Shift"
+                                error={errors.title?.message}
+                            />
+                        </Col>
+                    </Row>
+
+                    <div className="bg-gray-50 p-4 rounded-lg mb-4">
+                        <h3 className="text-sm font-semibold mb-3 text-gray-700">Working Hours</h3>
+                        <Row gutter={16} align="bottom">
+                            <Col span={12}>
+                                <FormTimePicker
+                                    name="startTime"
+                                    amPmName="startTimeAmPm"
+                                    control={control}
+                                    setValue={setValue}
+                                    watch={watch}
+                                    label="Start Time"
+                                    error={errors.startTime?.message}
+                                />
+                            </Col>
+                            <Col span={12}>
+                                <FormTimePicker
+                                    name="endTime"
+                                    amPmName="endTimeAmPm"
+                                    control={control}
+                                    setValue={setValue}
+                                    watch={watch}
+                                    label="End Time"
+                                    error={errors.endTime?.message}
+                                />
+                            </Col>
+                        </Row>
+                    </div>
+
+                    <div className="bg-gray-50 p-4 rounded-lg mb-4">
+                        <h3 className="text-sm font-semibold mb-3 text-gray-700">Break Time</h3>
+                        <Row gutter={16} align="bottom">
+                            <Col span={12}>
+                                <FormTimePicker
+                                    name="breakStartTime"
+                                    amPmName="breakStartTimeAmPm"
+                                    control={control}
+                                    setValue={setValue}
+                                    watch={watch}
+                                    label="Break Start"
+                                    error={errors.breakStartTime?.message}
+                                />
+                            </Col>
+                            <Col span={12}>
+                                <FormTimePicker
+                                    name="breakEndTime"
+                                    amPmName="breakEndTimeAmPm"
+                                    control={control}
+                                    setValue={setValue}
+                                    watch={watch}
+                                    label="Break End"
+                                    error={errors.breakEndTime?.message}
+                                />
+                            </Col>
+                        </Row>
+                    </div>
+                </Form>
+
+                <div className="flex justify-end gap-3 mt-8">
+                    <Button onClick={onClose}>Cancel</Button>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        loading={createMutation.isPending}
+                        className="bg-primary hover:bg-primary/90"
+                    >
+                        Create Timing
+                    </Button>
+                </div>
+            </form>
+        </Modal>
+    );
+};

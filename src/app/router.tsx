@@ -2,6 +2,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from '@/shared/components/Layout/MainLayout';
 import DashboardPage from '@/features/dashboard/pages/DashboardPage';
+import LoginPage from '@/features/auth/components/LoginPage';
+import TimingPage from '@/features/timing/pages/TimingPage';
+import ShiftsPage from '@/features/shifts/pages/ShiftsPage';
+import BarbersPage from '@/features/barbers/pages/BarbersPage';
+import SalonsPage from '@/features/salons/pages/SalonsPage';
 
 export const router = createBrowserRouter([
     {
@@ -11,6 +16,22 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <DashboardPage />,
+            },
+            {
+                path: 'timing',
+                element: <TimingPage />,
+            },
+            {
+                path: 'shifts',
+                element: <ShiftsPage />,
+            },
+            {
+                path: 'barbers',
+                element: <BarbersPage />,
+            },
+            {
+                path: 'salon',
+                element: <SalonsPage />,
             },
             {
                 path: 'appointments',
@@ -38,4 +59,9 @@ export const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: '/login',
+        element: <LoginPage />,
+    },
 ]);
+
