@@ -55,36 +55,36 @@ const Sidebar: React.FC<SidebarProps> = ({
             icon: <DashboardOutlined />,
             label: 'Dashboard',
         },
-        {
-            key: '/appointments',
-            icon: <CalendarOutlined />,
-            label: 'Appointments',
-        },
+        // {
+        //     key: '/appointments',
+        //     icon: <CalendarOutlined />,
+        //     label: 'Appointments',
+        // },
         {
             key: '/bookings',
             icon: <ScheduleOutlined />,
             label: 'Bookings',
         },
-        {
-            key: '/queues', // Changed from orders based on image "Queues"
-            icon: <UserOutlined />, // Queue icon
-            label: 'Queues',
-        },
-        {
-            key: '/clients',
-            icon: <UserOutlined />,
-            label: 'Clients',
-        },
-        {
-            key: '/payments',
-            icon: <DollarOutlined />,
-            label: 'Payments',
-        },
-        {
-            key: '/financial-summary',
-            icon: <FileTextOutlined />,
-            label: 'Financial Summary',
-        },
+        // {
+        //     key: '/queues', // Changed from orders based on image "Queues"
+        //     icon: <UserOutlined />, // Queue icon
+        //     label: 'Queues',
+        // },
+        // {
+        //     key: '/clients',
+        //     icon: <UserOutlined />,
+        //     label: 'Clients',
+        // },
+        // {
+        //     key: '/payments',
+        //     icon: <DollarOutlined />,
+        //     label: 'Payments',
+        // },
+        // {
+        //     key: '/financial-summary',
+        //     icon: <FileTextOutlined />,
+        //     label: 'Financial Summary',
+        // },
         {
             key: '/timing',
             icon: <ClockCircleOutlined />,
@@ -115,11 +115,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             icon: <GiftOutlined />,
             label: 'Packages',
         },
-        {
-            key: '/settings',
-            icon: <SettingOutlined />,
-            label: 'Settings',
-        },
+        // {
+        //     key: '/settings',
+        //     icon: <SettingOutlined />,
+        //     label: 'Settings',
+        // },
     ];
 
     // Common menu content
