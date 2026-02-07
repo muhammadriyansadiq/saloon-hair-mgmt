@@ -2,11 +2,11 @@ import React from 'react';
 import { Layout, Menu, Drawer } from 'antd';
 import {
     DashboardOutlined,
-    CalendarOutlined,
-    UserOutlined,
-    DollarOutlined,
-    FileTextOutlined,
-    SettingOutlined,
+    // CalendarOutlined,
+    // UserOutlined,
+    // DollarOutlined,
+    // FileTextOutlined,
+    // SettingOutlined,
     ClockCircleOutlined,
     ScheduleOutlined,
     ScissorOutlined,
