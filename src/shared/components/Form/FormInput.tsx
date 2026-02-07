@@ -9,9 +9,10 @@ interface FormInputProps {
     type?: string;
     error?: string;
     className?: string;
+    disabled?: boolean;
 }
 
-export const FormInput = ({ name, control, placeholder, label, type = 'text', error, className }: FormInputProps) => {
+export const FormInput = ({ name, control, placeholder, label, type = 'text', error, className, disabled }: FormInputProps) => {
     return (
         <Form.Item
             label={label}
@@ -29,6 +30,7 @@ export const FormInput = ({ name, control, placeholder, label, type = 'text', er
                         id={name}
                         type={type}
                         placeholder={placeholder}
+                        disabled={disabled}
                         className="w-full h-11 px-4 rounded-lg border-gray-200 hover:border-primary focus:border-primary"
                     />
                 )}

@@ -11,6 +11,7 @@ import {
     ScheduleOutlined,
     ScissorOutlined,
     ShopOutlined,
+    GiftOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -60,6 +61,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             label: 'Appointments',
         },
         {
+            key: '/bookings',
+            icon: <ScheduleOutlined />,
+            label: 'Bookings',
+        },
+        {
             key: '/queues', // Changed from orders based on image "Queues"
             icon: <UserOutlined />, // Queue icon
             label: 'Queues',
@@ -103,6 +109,11 @@ const Sidebar: React.FC<SidebarProps> = ({
             key: '/services',
             icon: <ScissorOutlined />, // Reusing Scissor for now, or maybe SkinOutlined if available? Using Scissor as placeholder or find better one. Let's use SkinOutlined if I import it, or just Scissor. User used Scissor for Barber. Let's send ScissorOutlined for now or checking imports.
             label: 'Services',
+        },
+        {
+            key: '/packages',
+            icon: <GiftOutlined />,
+            label: 'Packages',
         },
         {
             key: '/settings',

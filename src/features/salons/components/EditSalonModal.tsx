@@ -19,7 +19,7 @@ interface EditSalonModalProps {
 export const EditSalonModal = ({ open, onClose, salonId }: EditSalonModalProps) => {
     const queryClient = useQueryClient();
 
-    const { control, handleSubmit, reset, formState: { errors } } = useForm<SalonSchema>({
+    const { control, handleSubmit, reset, formState: { errors, isDirty } } = useForm<SalonSchema>({
         resolver: zodResolver(salonSchema),
     });
 
@@ -52,11 +52,31 @@ export const EditSalonModal = ({ open, onClose, salonId }: EditSalonModalProps) 
     useEffect(() => {
         if (salonResponse?.data) {
             const { name, description, barberId, timingsId, isBookingClosed } = salonResponse.data;
+
+            // Handle arrays which might be populated objects or IDs
+            let initialBarbers: number[] = [];
+            if (Array.isArray(barberId) && barberId.length > 0) {
+                initialBarbers = barberId.map((b: any) => typeof b === 'object' ? b.id : Number(b));
+            } else if (salonResponse.data.barbers && Array.isArray(salonResponse.data.barbers)) {
+                initialBarbers = salonResponse.data.barbers.map((b: any) => Number(b.id));
+            } else if (typeof barberId === 'number') {
+                initialBarbers = [barberId]; // Fallback if single ID returned
+            }
+
+            let initialTimings: number[] = [];
+            if (Array.isArray(timingsId) && timingsId.length > 0) {
+                initialTimings = timingsId.map((t: any) => typeof t === 'object' ? t.id : Number(t));
+            } else if (salonResponse.data.timings && Array.isArray(salonResponse.data.timings)) {
+                initialTimings = salonResponse.data.timings.map((t: any) => Number(t.id));
+            } else if (typeof timingsId === 'number') {
+                initialTimings = [timingsId]; // Fallback
+            }
+
             reset({
                 name,
                 description,
-                barberId: Number(barberId),
-                timingsId: Number(timingsId),
+                barbersId: initialBarbers,
+                timingsId: initialTimings,
                 isBookingClosed,
             });
         }
@@ -117,21 +137,23 @@ export const EditSalonModal = ({ open, onClose, salonId }: EditSalonModalProps) 
                         <Row gutter={16}>
                             <Col span={12}>
                                 <FormSelect
-                                    name="barberId"
+                                    name="barbersId"
                                     control={control}
-                                    label="Associate Barber"
+                                    label="Associate Barbers"
                                     options={barberOptions}
-                                    placeholder="Select Barber"
-                                    error={errors.barberId?.message}
+                                    placeholder="Select Barbers"
+                                    mode="multiple"
+                                    error={errors.barbersId?.message}
                                 />
                             </Col>
                             <Col span={12}>
                                 <FormSelect
                                     name="timingsId"
                                     control={control}
-                                    label="Assign Timing"
+                                    label="Assign Timings"
                                     options={timingOptions}
-                                    placeholder="Select Timing"
+                                    placeholder="Select Timings"
+                                    mode="multiple"
                                     error={errors.timingsId?.message}
                                 />
                             </Col>
@@ -164,6 +186,7 @@ export const EditSalonModal = ({ open, onClose, salonId }: EditSalonModalProps) 
                             type="primary"
                             htmlType="submit"
                             loading={updateMutation.isPending}
+                            disabled={!isDirty}
                             className="bg-primary hover:bg-primary/90"
                         >
                             Update Salon

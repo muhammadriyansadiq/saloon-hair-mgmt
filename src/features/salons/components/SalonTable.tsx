@@ -34,23 +34,37 @@ export const SalonTable = ({ data, loading, pagination, onEdit, onDelete }: Salo
                 </div>
             ),
         },
+        
         {
-            title: 'Associated Barber',
-            key: 'barber',
+            title: 'Associated Barbers',
+            key: 'barbers',
             render: (_: any, record: Salon) => (
-                record.barber ? (
-                    <div className="flex items-center gap-2">
-                        <span className="font-medium text-gray-700">{record.barber.name}</span>
-                    </div>
-                ) : <span className="text-gray-400 text-xs">No Barber</span>
+                <div className="flex flex-wrap gap-1">
+                    {record.barbers && record.barbers.length > 0 ? (
+                        record.barbers.map(barber => (
+                            <Tag key={barber.id} className="mr-0">{barber.name}</Tag>
+                        ))
+                    ) : (
+                        <span className="text-gray-400 text-xs">No Barbers</span>
+                    )}
+                </div>
             ),
         },
-        {
-            title: 'Timings ID',
-            dataIndex: 'timingsId',
-            key: 'timingsId',
-            className: 'text-gray-600',
-        },
+        // {
+        //     title: 'Timings',
+        //     key: 'timings',
+        //     render: (_: any, record: Salon) => (
+        //         <div className="flex flex-wrap gap-1">
+        //             {record.timingsId && Array.isArray(record.timingsId) ? (
+        //                 record.timingsId.map(id => (
+        //                     <Tag key={id} className="mr-0 bg-gray-100 border-gray-200">{id}</Tag>
+        //                 ))
+        //             ) : (
+        //                 <span className="text-gray-500">{record.timingsId}</span>
+        //             )}
+        //         </div>
+        //     ),
+        // },
         {
             title: 'Booking Status',
             key: 'status',

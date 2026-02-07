@@ -72,8 +72,8 @@ const PaymentTable: React.FC = () => {
     ];
 
     return (
-        <div className="bg-white rounded-card p-6 card-shadow h-full">
-            <h3 className="text-lg font-bold text-text-primary mb-6">
+        <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 h-full">
+            <h3 className="text-lg font-bold text-gray-900 mb-6">
                 Payment & Dues
             </h3>
             <div className="overflow-x-auto">
@@ -81,25 +81,10 @@ const PaymentTable: React.FC = () => {
                     columns={columns}
                     dataSource={data}
                     pagination={false}
-                    className="custom-table w-full"
-                    rowClassName="hover:bg-gray-50 transition-colors"
+                    className="w-full whitespace-nowrap"
+                    rowKey="key"
                 />
             </div>
-            <style>{`
-                .custom-table .ant-table-thead > tr > th {
-                    background: #FFF8E1 !important; /* Light yellow header */
-                    color: #1A1A1A !important;
-                    font-weight: 600 !important;
-                    border-bottom: 0 !important;
-                }
-                .custom-table .ant-table-tbody > tr > td {
-                    border-bottom: 1px solid #f0f0f0 !important;
-                    padding: 16px 8px !important;
-                }
-                .custom-table .ant-table-container {
-                    border-radius: 8px !important;
-                }
-            `}</style>
         </div>
     );
 };

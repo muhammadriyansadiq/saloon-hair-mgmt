@@ -5,10 +5,10 @@ export interface Salon {
     id: number;
     name: string;
     description: string;
-    timingsId: number;
-    barberId: number;
-    barber?: Barber; // Optional populated field
-    timings?: any; // To be typed properly if we have timing types available, using any for now or Shift? User said "timingsId", might refer to Shift or special Timing model. Sticking to ID for now.
+    timingsId: number[];
+    barberId: number[];
+    barbers?: Barber[]; // Optional populated field
+    timings?: any[]; // To be typed properly if we have timing types available
     isBookingClosed: boolean;
     createdAt?: string;
     updatedAt?: string;

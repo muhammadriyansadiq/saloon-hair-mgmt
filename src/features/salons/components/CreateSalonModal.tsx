@@ -97,21 +97,24 @@ export const CreateSalonModal = ({ open, onClose }: CreateSalonModalProps) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <FormSelect
-                                name="barberId"
+                                name="barbersId"
                                 control={control}
-                                label="Associate Barber"
+                                label="Associate Barbers"
                                 options={barberOptions}
-                                placeholder="Select Barber"
-                                error={errors.barberId?.message}
+                                placeholder="Select Barbers"
+                                mode="multiple"
+                                error={errors.barbersId?.message}
                             />
                         </Col>
                         <Col span={12}>
+
                             <FormSelect
                                 name="timingsId"
                                 control={control}
-                                label="Assign Timing"
+                                label="Assign Timings"
                                 options={timingOptions}
-                                placeholder="Select Timing"
+                                placeholder="Select Timings"
+                                mode="multiple"
                                 error={errors.timingsId?.message}
                             />
                         </Col>

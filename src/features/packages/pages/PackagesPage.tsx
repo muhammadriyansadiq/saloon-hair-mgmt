@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Button, Input, message } from 'antd';
 import { Plus, Search } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { serviceApi } from '../api/serviceApi';
-import { ServiceTable } from '../components/ServiceTable';
-import { CreateServiceModal } from '../components/CreateServiceModal';
-import { EditServiceModal } from '../components/EditServiceModal';
+import { packageApi } from '../api/packageApi';
+import { PackageTable } from '../components/PackageTable';
+import { CreatePackageModal } from '../components/CreatePackageModal';
+import { EditPackageModal } from '../components/EditPackageModal';
 
-const ServicesPage = () => {
+export const PackagesPage = () => {
     const queryClient = useQueryClient();
 
     // State
@@ -20,9 +20,9 @@ const ServicesPage = () => {
     const [editingId, setEditingId] = useState<number | null>(null);
 
     // Queries
-    const { data: servicesData, isLoading } = useQuery({
-        queryKey: ['services', page, pageSize, search],
-        queryFn: () => serviceApi.getServices({
+    const { data: packagesData, isLoading } = useQuery({
+        queryKey: ['packages', page, pageSize, search],
+        queryFn: () => packageApi.getPackages({
             page,
             limit: pageSize,
             search,
@@ -31,28 +31,28 @@ const ServicesPage = () => {
 
     // Mutations
     const deleteMutation = useMutation({
-        mutationFn: serviceApi.deleteService,
+        mutationFn: packageApi.deletePackage,
         onSuccess: () => {
-            message.success('Service deleted successfully');
-            queryClient.invalidateQueries({ queryKey: ['services'] });
+            message.success('Package deleted successfully');
+            queryClient.invalidateQueries({ queryKey: ['packages'] });
         },
         onError: () => {
-            message.error('Failed to delete service');
+            message.error('Failed to delete package');
         }
     });
 
     // Handlers
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
-        setPage(1); // Reset to first page
+        setPage(1);
     };
 
     return (
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Services Management</h1>
-                    <p className="text-gray-500">Manage salon services and pricing</p>
+                    <h1 className="text-2xl font-bold text-gray-900">Package Management</h1>
+                    <p className="text-gray-500">Manage service packages and bundles</p>
                 </div>
                 <Button
                     type="primary"
@@ -60,7 +60,7 @@ const ServicesPage = () => {
                     onClick={() => setIsCreateOpen(true)}
                     className="bg-primary hover:bg-primary/90 h-10 px-6 rounded-lg"
                 >
-                    Add Service
+                    Add Package
                 </Button>
             </div>
 
@@ -68,7 +68,7 @@ const ServicesPage = () => {
                 <div className="relative flex-1 max-w-md">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <Input
-                        placeholder="Search services..."
+                        placeholder="Search packages..."
                         value={search}
                         onChange={handleSearch}
                         className="pl-3 h-11 rounded-lg border-gray-200"
@@ -76,35 +76,33 @@ const ServicesPage = () => {
                 </div>
             </div>
 
-            <ServiceTable
-                data={servicesData?.data || []}
+            <PackageTable
+                data={packagesData?.data || []}
                 loading={isLoading}
                 pagination={{
                     current: page,
                     pageSize: pageSize,
-                    total: servicesData?.total || 0,
+                    total: packagesData?.total || 0,
                     onChange: (p, ps) => {
                         setPage(p);
                         setPageSize(ps);
                     },
                 }}
-                onEdit={(id) => setEditingId(id)}
+                onEdit={(pkg) => setEditingId(pkg.id)}
                 onDelete={(id) => deleteMutation.mutate(id)}
             />
 
             {/* Modals */}
-            <CreateServiceModal
+            <CreatePackageModal
                 open={isCreateOpen}
                 onClose={() => setIsCreateOpen(false)}
             />
 
-            <EditServiceModal
+            <EditPackageModal
                 open={!!editingId}
+                packageId={editingId}
                 onClose={() => setEditingId(null)}
-                serviceId={editingId}
             />
         </div>
     );
 };
-
-export default ServicesPage;

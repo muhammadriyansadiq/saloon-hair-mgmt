@@ -8,6 +8,8 @@ import ShiftsPage from '@/features/shifts/pages/ShiftsPage';
 import BarbersPage from '@/features/barbers/pages/BarbersPage';
 import SalonsPage from '@/features/salons/pages/SalonsPage';
 import ServicesPage from '@/features/services/pages/ServicesPage';
+import { PackagesPage } from '@/features/packages/pages/PackagesPage';
+import { BookingsPage } from '@/features/bookings/pages/BookingsPage';
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +39,14 @@ export const router = createBrowserRouter([
             {
                 path: 'services',
                 element: <ServicesPage />,
+            },
+            {
+                path: 'packages',
+                element: <PackagesPage />,
+            },
+            {
+                path: 'bookings',
+                element: <BookingsPage />,
             },
             {
                 path: 'appointments',
