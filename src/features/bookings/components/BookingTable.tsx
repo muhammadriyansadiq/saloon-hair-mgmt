@@ -1,5 +1,5 @@
 
-import { Table, Button, Popconfirm, Tag, Avatar, Space } from 'antd';
+import { Table, Button, Popconfirm, Tag, Avatar } from 'antd';
 import { Edit, Trash2, CalendarCheck, User, Scissors, Gift, UserCircle } from 'lucide-react';
 import { Booking } from '../types';
 import dayjs from 'dayjs';

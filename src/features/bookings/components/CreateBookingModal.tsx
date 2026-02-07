@@ -7,7 +7,7 @@ import { bookingApi } from '../api/bookingApi';
 import { barberApi } from '@/features/barbers/api/barberApi';
 import { serviceApi } from '@/features/services/api/serviceApi';
 import { packageApi } from '@/features/packages/api/packageApi';
-import { bookingSchema } from '../schemas/bookingSchema';
+import { bookingSchema, BookingSchema } from '../schemas/bookingSchema';
 import { FormInput } from '@/shared/components/Form/FormInput';
 import { FormSelect } from '@/shared/components/Form/FormSelect';
 
@@ -19,12 +19,14 @@ interface CreateBookingModalProps {
 export const CreateBookingModal = ({ open, onClose }: CreateBookingModalProps) => {
     const queryClient = useQueryClient();
 
-    const { control, handleSubmit, reset, formState: { errors } } = useForm({
+    const { control, handleSubmit, reset, formState: { errors } } = useForm<BookingSchema>({
         resolver: zodResolver(bookingSchema),
         defaultValues: {
             serviceIds: [],
             packageIds: [],
             userId: 3,
+            // Ensure barberId is considered in the type, even if undefined initially or handled via validation
+            barberId: undefined,
         }
     });
 

@@ -1,4 +1,4 @@
-import { Table, Button, Popconfirm, Tag, Avatar, Space } from 'antd';
+import { Table, Button, Popconfirm, Tag, Avatar } from 'antd';
 import { Edit, Trash2, Gift } from 'lucide-react';
 import { Package } from '../types';
 
