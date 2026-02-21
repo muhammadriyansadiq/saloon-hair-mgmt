@@ -12,13 +12,6 @@ const DashboardPage: React.FC = () => {
     const [isCreateOpen, setIsCreateOpen] = useState(false);
 
     // Mock data for barber queues
-    const stats = {
-        appointments: { value: '12', title: 'Todays Appointments' },
-        tokens: { value: 'Token 05', title: 'Action Tokens' },
-        collections: { value: '$8,950', badge: '1500', title: 'Todays Collections' },
-        dues: { value: '$450', title: 'Pending Dues' }
-    };
-
     const queues = [
         {
             barberName: 'Shan',

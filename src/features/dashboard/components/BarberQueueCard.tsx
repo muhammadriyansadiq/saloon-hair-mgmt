@@ -160,7 +160,7 @@ interface BarberQueueCardProps {
 
 const BarberQueueCard: React.FC<BarberQueueCardProps> = ({
     barberName,
-    activeQueue,
+    activeQueue: _activeQueue,
     pendingQueue
 }) => {
     return (
