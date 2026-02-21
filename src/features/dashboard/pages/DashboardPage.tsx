@@ -1,14 +1,16 @@
 
-import { Calendar } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
-import StatCard from '../components/dashboard/StatCard';
 import BarberQueueCard from '../components/BarberQueueCard';
-import PaymentTable from '../components/PaymentTable';
-import QuickActions from '../components/QuickActions';
+import { Button } from 'antd';
+import { useState } from 'react';
+import { CreateBookingModal } from '@/features/bookings/components/CreateBookingModal';
 
 
 
 const DashboardPage: React.FC = () => {
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+
     // Mock data for barber queues
     const stats = {
         appointments: { value: '12', title: 'Todays Appointments' },
@@ -70,7 +72,7 @@ const DashboardPage: React.FC = () => {
                     textColor="text-danger" // Red text for dues? Or keep white on black
                 />
             </div> */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <StatCard
                     title={stats.appointments.title}
                     value={stats.appointments.value}
@@ -103,7 +105,7 @@ const DashboardPage: React.FC = () => {
                     textColor="text-white"
                     valueColor="text-red-500"
                 />
-            </div>
+            </div> */}
             {/* Barber Queues */}
             {/* <div>
                 <h2 className="text-xl font-bold text-text-primary mb-6">
@@ -122,7 +124,18 @@ const DashboardPage: React.FC = () => {
                 </div>
             </div> */}
             <div>
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Barber Queues</h2>
+                <div className="flex justify-between items-center gap-4  mb-8">
+                    <h2 className="text-xl font-bold text-gray-800 ">Barber Queues</h2>
+
+                    <Button
+                        type="primary"
+                        icon={<Plus size={18} />}
+                        onClick={() => setIsCreateOpen(true)}
+                        className="bg-primary hover:bg-primary/90 h-10 px-6 rounded-lg "
+                    >
+                        Quick Booking
+                    </Button>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {queues.map((queue, index) => (
                         <BarberQueueCard
@@ -136,13 +149,18 @@ const DashboardPage: React.FC = () => {
             </div>
             {/* Payment & Dues + Quick Actions */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 h-full">
+                {/* <div className="lg:col-span-2 h-full">
                     <PaymentTable />
-                </div>
-                <div className="h-full">
+                </div> */}
+                {/* <div className="h-full">
                     <QuickActions />
-                </div>
+                </div> */}
             </div>
+
+            <CreateBookingModal
+                open={isCreateOpen}
+                onClose={() => setIsCreateOpen(false)}
+            />
         </div>
     );
 };

@@ -171,18 +171,32 @@ const BarberQueueCard: React.FC<BarberQueueCardProps> = ({
 
             <div className="flex flex-col  gap-2">
                 {/* Active Section */}
-                <QueueItem
+                {/* <QueueItem
                     statusLabel="Active"
                     tokenNo={activeQueue.tokenNo}
                     customerName={activeQueue.customerName}
                     services={activeQueue.services}
                     actionLabel="Complete"
                     actionVariant="blue"
-                />
+                /> */}
 
                 {/* Pending Section - Divider? */}
                 {/* <div className="h-px bg-gray-100 w-full" /> */}
-
+                <QueueItem
+                    statusLabel="Pending"
+                    tokenNo={pendingQueue.tokenNo}
+                    customerName={pendingQueue.customerName}
+                    services={pendingQueue.services}
+                    actionLabel={pendingQueue.tokenNo ? "Start Due" : "Start Services"}
+                    actionVariant="green"
+                /> <QueueItem
+                    statusLabel="Pending"
+                    tokenNo={pendingQueue.tokenNo}
+                    customerName={pendingQueue.customerName}
+                    services={pendingQueue.services}
+                    actionLabel={pendingQueue.tokenNo ? "Start Due" : "Start Services"}
+                    actionVariant="green"
+                />
                 <QueueItem
                     statusLabel="Pending"
                     tokenNo={pendingQueue.tokenNo}
